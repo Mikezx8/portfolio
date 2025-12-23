@@ -1,5 +1,8 @@
 <html>
 <head>
+    <title>Mike | Cyber Security & Full-Stack Developer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         *,
         *:after,
@@ -476,6 +479,234 @@
             border-top: 1px solid #222;
             font-size: 0.9rem;
         }
+
+        /* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 1200px) {
+    main {
+        width: 100%;
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .page-content, .hero-content {
+        left: 5%;
+        max-width: 500px;
+    }
+    
+    .title {
+        font-size: 3rem;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav {
+        gap: 20px;
+        padding-top: 15px;
+    }
+    
+    .nav-item {
+        font-size: 14px;
+        padding: 6px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header/Mobile Navigation */
+    .logo {
+        font-size: 2rem;
+        top: 15px;
+        left: 20px;
+    }
+    
+    .nav {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        padding-top: 80px;
+        gap: 20px;
+        transition: right 0.3s ease;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-left: 30px;
+    }
+    
+    .nav.active {
+        right: 0;
+    }
+    
+    .nav-item {
+        font-size: 16px;
+        padding: 12px 0;
+        border: none;
+        width: 100%;
+        text-align: left;
+    }
+    
+    .nav-item::after {
+        left: 0;
+        right: auto;
+        width: 100%;
+    }
+    
+    .nav:has(.nav-item:hover) .nav-item:not(:hover) {
+        opacity: 1;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.3s;
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Content Adjustments */
+    .page-content, .hero-content {
+        left: 5%;
+        right: 5%;
+        max-width: 90%;
+        padding: 20px;
+        margin: 0 auto;
+    }
+    
+    .title {
+        font-size: 2.5rem;
+        white-space: normal;
+        animation: none;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .description {
+        font-size: 1rem;
+    }
+    
+    /* Social Section */
+    .social-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .social-side {
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+    }
+    
+    .pop-out-image {
+        order: -1;
+        margin-bottom: 40px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+    
+    .footer-logo {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content, .page-content {
+        padding: 15px;
+    }
+    
+    .view-page-btn {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+    }
+    
+    .social-side {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .nav {
+        width: 100%;
+        padding-left: 20px;
+    }
+    
+    h1 span:last-of-type {
+        font-size: 3rem;
+    }
+}
+
+/* Landscape Mode */
+@media (max-height: 600px) and (orientation: landscape) {
+    .page-section {
+        min-height: 100vh;
+        height: auto;
+        padding: 100px 0;
+    }
+    
+    .hero-content, .page-content {
+        margin-top: 60px;
+    }
+    
+    .logo {
+        top: 10px;
+        left: 15px;
+        font-size: 2rem;
+    }
+    
+    .nav {
+        padding-top: 10px;
+        gap: 10px;
+    }
+}
         
         @media (max-width: 768px) {
             .social-grid {
@@ -661,6 +892,9 @@
     <script>
         // Typing animation for description
         const text = "Cyber Security Specialist & Full-Stack Developer. Passionate about creating secure, innovative solutions and pushing the boundaries of technology. Specializing in penetration testing, secure coding practices, and building robust applications that protect and empower.";
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('.nav');
         const typingElement = document.getElementById('typingText');
         let index = 0;
         
@@ -679,6 +913,59 @@
         const CONFIG = {
             explode: false
         }
+
+        if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        nav.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            nav.classList.remove('active');
+        });
+    });
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('active');
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Add scroll effect to header
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('.main-header');
+    if (window.scrollY > 100) {
+        header.style.background = 'rgba(0, 0, 0, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+    } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+    }
+});
         
         const CTRL = new dat.GUI()
         
@@ -689,4 +976,5 @@
         CTRL.add(CONFIG, 'explode').name('Explode?').onChange(TOGGLE)
     </script>
 </body>
+
 </html>
