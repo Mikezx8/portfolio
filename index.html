@@ -723,7 +723,12 @@
 </head>
 <body>
     <div class="logo">M</div>
-    
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <nav class="nav">
         <a href="#home" class="nav-item">Home</a>
         <a href="#gamedev" class="nav-item">Game Dev</a>
@@ -890,91 +895,124 @@
     
     <script src="https://cdn.skypack.dev/dat.gui"></script>
     <script>
-        // Typing animation for description
-        const text = "Cyber Security Specialist & Full-Stack Developer. Passionate about creating secure, innovative solutions and pushing the boundaries of technology. Specializing in penetration testing, secure coding practices, and building robust applications that protect and empower.";
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('.nav');
-        const typingElement = document.getElementById('typingText');
-        let index = 0;
-        
-        setTimeout(() => {
-            const typeInterval = setInterval(() => {
-                if (index < text.length) {
-                    typingElement.textContent += text.charAt(index);
-                    index++;
-                } else {
-                    clearInterval(typeInterval);
-                }
-            }, 10); // 50ms per character for natural typing speed
-        }, 1000); // Start after 2.5 seconds (after MIKE finishes)
-        
-        // Explode feature
-        const CONFIG = {
-            explode: false
-        }
+// =======================
+// Typing animation (description)
+// =======================
+(() => {
+    const text =
+        "Cyber Security Specialist & Full-Stack Developer. Passionate about creating secure, innovative solutions and pushing the boundaries of technology. Specializing in penetration testing, secure coding practices, and building robust applications that protect and empower.";
 
-        if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        nav.classList.toggle('active');
+    const el = document.getElementById("typingText");
+    if (!el) return;
+
+    let i = 0;
+
+    setTimeout(() => {
+        const interval = setInterval(() => {
+            if (i >= text.length) {
+                clearInterval(interval);
+                return;
+            }
+            el.textContent += text[i++];
+        }, 10); // fast but readable
+    }, 1000);
+})();
+
+// =======================
+// Mobile menu
+// =======================
+(() => {
+    const toggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+    if (!toggle || !nav) return;
+
+    const closeMenu = () => {
+        toggle.classList.remove("active");
+        nav.classList.remove("active");
+    };
+
+    toggle.addEventListener("click", e => {
+        e.stopPropagation();
+        toggle.classList.toggle("active");
+        nav.classList.toggle("active");
     });
-    
-    // Close menu when clicking on nav items
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            nav.classList.remove('active');
+
+    document.querySelectorAll(".nav-item").forEach(item =>
+        item.addEventListener("click", closeMenu)
+    );
+
+    document.addEventListener("click", e => {
+        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeMenu();
+    });
+})();
+
+// =======================
+// Smooth scroll
+// =======================
+(() => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", e => {
+            const id = anchor.getAttribute("href");
+            if (!id || id === "#") return;
+
+            const target = document.querySelector(id);
+            if (!target) return;
+
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
         });
     });
-}
+})();
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
-        menuToggle.classList.remove('active');
-        nav.classList.remove('active');
-    }
-});
+// =======================
+// Scroll effects (single listener)
+// =======================
+(() => {
+    const header = document.querySelector(".main-header");
 
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+    if (!header) return;
 
-// Add scroll effect to header
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.main-header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(0, 0, 0, 0.95)';
-        header.style.backdropFilter = 'blur(10px)';
-    } else {
-        header.style.background = 'transparent';
-        header.style.backdropFilter = 'none';
-    }
-});
-        
-        const CTRL = new dat.GUI()
-        
-        const TOGGLE = () => {
-            document.body.toggleAttribute('data-exploded')
-        }
-        
-        CTRL.add(CONFIG, 'explode').name('Explode?').onChange(TOGGLE)
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (window.scrollY > 100) {
+                header.style.background = "rgba(0,0,0,0.95)";
+                header.style.backdropFilter = "blur(10px)";
+            } else {
+                header.style.background = "transparent";
+                header.style.backdropFilter = "none";
+            }
+        },
+        { passive: true }
+    );
+})();
+
+// =======================
+// Explode feature (dat.GUI-safe)
+// =======================
+(() => {
+    if (typeof dat === "undefined" || !dat.GUI) return;
+
+    const CONFIG = { explode: false };
+
+    const CTRL = new dat.GUI();
+    const toggleExplode = () => {
+        document.body.toggleAttribute("data-exploded", CONFIG.explode);
+    };
+
+    CTRL.add(CONFIG, "explode").name("Explode?").onChange(toggleExplode);
+})();
     </script>
 </body>
 
 </html>
+
