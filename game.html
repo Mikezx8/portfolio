@@ -1,0 +1,1204 @@
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: "Aeonik Pro Regular";
+            src: url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.eot");
+            src: url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.woff2") format("woff2"),
+                url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.woff") format("woff"),
+                url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.ttf") format("truetype");
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Aeonik Pro Regular", "SF Pro Text", sans-serif;
+            background: hsl(0 0% 2%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            z-index: 100;
+            letter-spacing: -2px;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-section video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            left: 10%;
+            max-width: 600px;
+        }
+        
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+    margin-bottom: 1rem;
+}
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #ccc;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* Stacking Cards Container */
+        .cards-container {
+            position: relative;
+            z-index: 5;
+            background: hsl(0 0% 2%);
+        }
+        
+/* Games Section */
+.games-section {
+    position: relative;
+    z-index: 10;
+    background: hsl(0 0% 2%);
+    padding: 6rem 2rem;
+}
+
+.games-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-align: center;
+    margin-bottom: 4rem;
+    background: linear-gradient(hsl(0 0% 98%) 30%, hsl(0 0% 30%));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.games-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.game-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.game-showcase:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.game-showcase:nth-child(even) {
+    grid-template-columns: 1fr 1fr;
+}
+
+.game-showcase:nth-child(even) .game-image {
+    order: 2;
+}
+
+.game-showcase:nth-child(even) .game-info {
+    order: 1;
+}
+
+.game-image {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.game-image img,
+.game-image video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.game-genre {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.game-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 2rem;
+}
+
+.game-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.feature-item::before {
+    content: '▸';
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+    .game-showcase,
+    .game-showcase:nth-child(even) {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-showcase:nth-child(even) .game-image {
+        order: 1;
+    }
+    
+    .game-showcase:nth-child(even) .game-info {
+        order: 2;
+    }
+}
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1rem;
+            color: #bbb;
+        }
+        
+        .feature-item::before {
+            content: '▸';
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        
+        /* Tools Section */
+        .tools-section {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 30%, #2a2a2a 0%, #131313 64%);
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tools-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(hsl(0 0% 98%) 30%, hsl(0 0% 30%));
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .card {
+            position: relative;
+            background: radial-gradient(circle at 50% 0%, #3a3a3a 0%, #1a1a1a 64%);
+            box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0, inset 0 -1.01rem 0.2rem -1rem #0000,
+                0 -1.02rem 0.2rem -1rem #fff0, 0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3,
+                0 4px 4px 0 #0004, 0 0 0 1px #333;
+            border-radius: 1.8rem;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease-in-out, translate 0.4s ease-out;
+            min-height: 380px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding-top: 20px;
+            z-index: 100;
+        }
+        .nav-item {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 20px;
+            position: relative;
+            transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            border: 1px solid transparent;
+            border-radius: 20px;
+        }
+        .nav-item:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        .nav-item:hover::after {
+            transform: scaleX(1);
+        }
+        .nav-item:hover {
+            color: #fff;
+        }
+        .nav:has(.nav-item:hover) .nav-item:not(:hover) {
+            opacity: 0.3;
+        }
+        
+        .card::before {
+            content: "";
+            display: block;
+            --offset: 1rem;
+            width: calc(100% + 2 * var(--offset));
+            height: calc(100% + 2 * var(--offset));
+            position: absolute;
+            left: calc(-1 * var(--offset));
+            right: calc(-1 * var(--offset));
+            top: calc(-1 * var(--offset));
+            bottom: calc(-1 * var(--offset));
+            margin: auto;
+            box-shadow: inset 0 0 0px 0.06rem #fff2;
+            border-radius: 2.6rem;
+            --ax: 4rem;
+            clip-path: polygon(
+                var(--ax) 0, 0 0, 0 var(--ax), var(--ax) var(--ax),
+                var(--ax) calc(100% - var(--ax)), 0 calc(100% - var(--ax)), 0 100%,
+                var(--ax) 100%, var(--ax) calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)), calc(100% - var(--ax)) 100%,
+                100% 100%, 100% calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)), calc(100% - var(--ax)) var(--ax),
+                100% var(--ax), 100% 0, calc(100% - var(--ax)) 0,
+                calc(100% - var(--ax)) var(--ax), var(--ax) var(--ax)
+            );
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .card:hover {
+            translate: 0 -0.2rem;
+        }
+        
+        .card:hover::before {
+            --offset: 0.5rem;
+            --ax: 8rem;
+            border-radius: 2.2rem;
+            box-shadow: inset 0 0 0 0.08rem #fff1;
+        }
+        
+        .light-layer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            transform-style: preserve-3d;
+            perspective: 400px;
+        }
+        
+        .slit {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 64%;
+            height: 1.2rem;
+            transform: rotateX(-76deg);
+            background: #121212;
+            box-shadow: 0 0 4px 0 #fff0;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .lumen {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            perspective: 400px;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .lumen .min {
+            width: 70%;
+            height: 3rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 2.5rem;
+            margin: auto;
+            transform: rotateX(-42deg);
+            opacity: 0.4;
+        }
+        
+        .lumen .mid {
+            width: 74%;
+            height: 13rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 10em;
+            margin: auto;
+            transform: rotateX(-42deg);
+            filter: blur(1rem);
+            opacity: 0.8;
+            border-radius: 100% 100% 0 0;
+        }
+        
+        .lumen .hi {
+            width: 50%;
+            height: 13rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 12em;
+            margin: auto;
+            transform: rotateX(22deg);
+            filter: blur(1rem);
+            opacity: 0.6;
+            border-radius: 100% 100% 0 0;
+        }
+        
+        .darken {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            perspective: 400px;
+            transition: opacity 0.4s ease-in-out;
+            opacity: 0.5;
+        }
+        
+        .darken > * {
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .darken .sl {
+            width: 64%;
+            height: 10rem;
+            background: linear-gradient(#000, #0000);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 9.6em;
+            bottom: 0;
+            margin: auto;
+            filter: blur(0.2rem);
+            opacity: 0.1;
+            border-radius: 0 0 100% 100%;
+            transform: rotateX(-22deg);
+        }
+        
+        .darken .ll {
+            width: 62%;
+            height: 10rem;
+            background: linear-gradient(#000a, #0000);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 11em;
+            bottom: 0;
+            margin: auto;
+            filter: blur(0.8rem);
+            opacity: 0.4;
+            border-radius: 0 0 100% 100%;
+            transform: rotateX(22deg);
+        }
+        
+        .darken .slt {
+            width: 0.5rem;
+            height: 4rem;
+            background: linear-gradient(#0005, #0000);
+            position: absolute;
+            left: 0;
+            right: 11.5rem;
+            top: 3.9em;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.6;
+            border-radius: 0 0 100% 100%;
+            transform: skewY(42deg);
+        }
+        
+        .darken .srt {
+            width: 0.5rem;
+            height: 4rem;
+            background: linear-gradient(#0005, #0000);
+            position: absolute;
+            right: 0;
+            left: 11.5rem;
+            top: 3.9em;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.6;
+            border-radius: 0 0 100% 100%;
+            transform: skewY(-42deg);
+        }
+        
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            filter: drop-shadow(0 -1.2rem 1px transparent);
+            transition: filter 0.4s ease-in-out;
+        }
+        
+        .content .icon img {
+            width: 4rem;
+            height: 4rem;
+            filter: brightness(1);
+        }
+        
+        .content .bottom {
+            text-align: center;
+        }
+        
+        .content .bottom h4 {
+            margin: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #ccc;
+        }
+        
+        .content .bottom p {
+            margin: 0 auto;
+            padding-bottom: 0.6rem;
+            color: #fff4;
+            font-size: 0.8rem;
+            font-weight: 100;
+            border-bottom: 1px solid #fff1;
+            max-width: 80%;
+        }
+        
+        .toggle {
+            margin: 2rem auto 0;
+            height: 2rem;
+            width: 4.8rem;
+            border-radius: 0.6rem;
+            background: #000;
+            box-shadow: inset 0 -8px 8px 0.3rem #0004, inset 0 0 1px 0.3rem #ddd,
+                inset 0 -2px 1px 0.3rem #fff, inset 0 1px 2px 0.3rem #0006,
+                inset 0 0 1px 0.8rem #aaa;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+        }
+        
+        .toggle::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 3.4rem;
+            height: 0.68rem;
+            border-radius: 0.2rem;
+            background: #000;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .handle {
+            position: absolute;
+            top: 0;
+            bottom: 0.04rem;
+            margin: auto;
+            left: 0.68rem;
+            width: 40%;
+            height: 30%;
+            background: #aaa;
+            border-radius: 0.2rem;
+            box-shadow: inset 0 1px 4px 0 #fff, inset 0 -1px 1px 0 #000a,
+                0 0 1px 1px #0003, 1px 3px 6px 1px #000a;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .toggle.active .handle {
+            transform: translateX(1.58rem);
+        }
+        
+        .toggle span {
+            pointer-events: none;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            bottom: calc(100% + 0.4rem);
+            font-size: 0.6rem;
+            font-weight: 100;
+            color: #555;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .toggle:hover span {
+            opacity: 1;
+        }
+        
+        .toggle:not(.active):hover .handle {
+            transform: translateX(0.2rem);
+        }
+        
+        .card:has(.toggle.active) {
+            box-shadow: inset 0 1.01rem 0.1rem -1rem #fffa, inset 0 -4rem 3rem -3rem #000a,
+                0 -1.02rem 0.2rem -1rem #fffa, 0 1rem 0.2rem -1rem #000, 0 0 0 1px #fff2,
+                0 4px 4px 0 #0004, 0 0 0 1px #333;
+        }
+        
+        .card:has(.toggle.active) .slit {
+            background: #fff;
+            box-shadow: 0 0 4px 0 #fff;
+        }
+        
+        .card:has(.toggle.active) .lumen {
+            opacity: 0.5;
+        }
+        
+        .card:has(.toggle.active) .darken {
+            opacity: 0.8;
+        }
+        
+        .card:has(.toggle.active) .darken .sl {
+            opacity: 0.2;
+        }
+        
+        .card:has(.toggle.active) .darken .ll {
+            opacity: 1;
+        }
+        
+        .card:has(.toggle.active) .darken .slt {
+            opacity: 1;
+        }
+        
+        .card:has(.toggle.active) .darken .srt {
+            opacity: 1;
+        }
+        
+        .card:has(.toggle.active) .content .icon {
+            filter: drop-shadow(0 -1.2rem 2px #0003) brightness(1.64);
+        }
+        
+        .card:has(.toggle.active) .toggle::before {
+            background: #fffc;
+            box-shadow: 0 0 0.3rem 0.2rem #fff7;
+        }
+        
+        .card:has(.toggle.active) .handle {
+            box-shadow: inset 0 1px 12px 0 #fff, inset 0 -1px 1px 0 #fffa,
+                0 0 2px 1px #4443, 1px 3px 6px 1px #0004;
+        }
+        
+        /* Engine Info Sections */
+        .engine-info-section {
+            display: none;
+            background: #1a1a1a;
+            border-radius: 1.8rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .engine-info-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .engine-info-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .engine-info-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .info-card {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid #333;
+        }
+        
+        .info-card h4 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .info-card ul {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            padding-left: 1.5rem;
+        }
+        
+        .info-card li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            background: #000;
+            border-top: 1px solid #333;
+            padding: 60px 40px 40px;
+            color: #888;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-left {
+            flex: 1;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            letter-spacing: -5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">M</div>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="#games" class="nav-item">Games</a>
+        <a href="#tools" class="nav-item">Tools</a>
+        <a href="#footer" class="nav-item">About</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <video autoplay loop muted playsinline>
+            <source src="game.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1 class="hero-title">GAME DEVELOPMENT</h1>
+            <p class="hero-subtitle" id="typingText"></p>
+        </div>
+    </section>
+    
+    <!-- Replace the entire "Stacking Game Cards" section with this: -->
+
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <h2 class="games-title">Featured Games</h2>
+        
+        <div class="games-grid">
+            <!-- Game 1: Velocity Rush -->
+            <div class="game-showcase">
+                <div class="game-image">
+                    <img src="https://img.freepik.com/premium-photo/white-black-futuristic-concept-car-hypercar-rushes-through-city_124507-85829.jpg?w=740" alt="Velocity Rush">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Velocity Rush</h3>
+                    <p class="game-genre">Racing • Action</p>
+                    <p class="game-description">
+                        Experience the ultimate high-speed racing adventure through neon-lit tunnels and futuristic cityscapes. 
+                        Master advanced vehicle physics and compete against AI rivals in breathtaking environments.
+                    </p>
+                    <div class="game-features">
+                        <div class="feature-item">10+ unique vehicles with full customization</div>
+                        <div class="feature-item">Dynamic weather and time-of-day system</div>
+                        <div class="feature-item">Advanced AI opponents with realistic behavior</div>
+                        <div class="feature-item">Multiple game modes including Time Trial</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game 2: Shadow Ops -->
+            <div class="game-showcase">
+                <div class="game-image">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://cdn.pixabay.com/video/2024/08/06/225234_tiny.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Shadow Ops</h3>
+                    <p class="game-genre">Tactical • Military Simulation</p>
+                    <p class="game-description">
+                        Lead elite special forces teams through intense tactical operations across global hotspots. 
+                        Plan your approach, coordinate with AI squad members, and execute precision strikes.
+                    </p>
+                    <div class="game-features">
+                        <div class="feature-item">Realistic tactical gameplay with squad commands</div>
+                        <div class="feature-item">20+ authentic weapons and equipment</div>
+                        <div class="feature-item">Destructible environments and advanced physics</div>
+                        <div class="feature-item">Single-player campaign with branching missions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game 3: City Builder Pro -->
+            <div class="game-showcase">
+                <div class="game-image">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://cdn.pixabay.com/video/2016/03/09/2417-158386091_tiny.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">City Builder Pro</h3>
+                    <p class="game-genre">Strategy • Simulation</p>
+                    <p class="game-description">
+                        Build and manage the city of your dreams from the ground up. Balance economy, infrastructure, and citizen happiness 
+                        while expanding your metropolis across diverse landscapes.
+                    </p>
+                    <div class="game-features">
+                        <div class="feature-item">Complex economic simulation with supply chains</div>
+                        <div class="feature-item">Advanced traffic and transportation systems</div>
+                        <div class="feature-item">Natural disasters and emergency management</div>
+                        <div class="feature-item">Mod support for unlimited customization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tools Section -->
+    <section class="tools-section" id="tools">
+        <h2 class="tools-title">Development Arsenal</h2>
+        <div class="tools-grid">
+            <!-- Unreal Engine Card -->
+            <div class="card" data-engine="unreal">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://cdn.worldvectorlogo.com/logos/unreal-1.svg" alt="Unreal Engine">
+                    </div>
+                    <div class="bottom">
+                        <h4>Unreal Engine</h4>
+                        <p>Photorealistic Graphics<br/>AAA Game Development</p>
+                        <div class="toggle" onclick="toggleEngineInfo(this, 'unreal');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Unity Card -->
+            <div class="card" data-engine="unity">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://cdn.worldvectorlogo.com/logos/unity-69.svg" alt="Unity">
+                    </div>
+                    <div class="bottom">
+                        <h4>Unity</h4>
+                        <p>Cross-Platform Games<br/>Rapid Prototyping</p>
+                        <div class="toggle" onclick="toggleEngineInfo(this, 'unity');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Godot Card -->
+            <div class="card" data-engine="godot">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://cdn.icon-icons.com/icons2/1495/PNG/512/godot_103035.png" alt="Godot">
+                    </div>
+                    <div class="bottom">
+                        <h4>Godot</h4>
+                        <p>Open Source Power<br/>Indie Game Creation</p>
+                        <div class="toggle" onclick="toggleEngineInfo(this, 'godot');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blender Card -->
+            <div class="card" data-engine="blender">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://cdn.worldvectorlogo.com/logos/blender-2.svg" alt="Blender">
+                    </div>
+                    <div class="bottom">
+                        <h4>Blender</h4>
+                        <p>3D Modeling & Animation<br/>Asset Creation</p>
+                        <div class="toggle" onclick="toggleEngineInfo(this, 'blender');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Engine Info Sections -->
+        <div id="unreal-info" class="engine-info-section">
+            <h3 class="engine-info-title">Unreal Engine Expertise</h3>
+            <div class="engine-info-content">
+                <div class="info-card">
+                    <h4>Core Features</h4>
+                    <p>Advanced rendering with Lumen and Nanite, robust physics simulation, and comprehensive visual scripting tools.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Project Experience</h4>
+                    <ul>
+                        <li>AAA Racing Games</li>
+                        <li>First-Person Shooters</li>
+                        <li>Open World Environments</li>
+                        <li>Real-time Cinematics</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Technical Skills</h4>
+                    <p>Blueprint Visual Scripting, C++ Development, Material Creation, Performance Optimization, Multiplayer Networking</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unity-info" class="engine-info-section">
+            <h3 class="engine-info-title">Unity Development Expertise</h3>
+            <div class="engine-info-content">
+                <div class="info-card">
+                    <h4>Core Features</h4>
+                    <p>Cross-platform deployment, Unity UI system, physics engine, and extensive asset store integration.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Project Experience</h4>
+                    <ul>
+                        <li>Mobile Games</li>
+                        <li>VR/AR Experiences</li>
+                        <li>2D Platformers</li>
+                        <li>Rapid Prototyping</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Technical Skills</h4>
+                    <p>C# Programming, Unity Editor Scripting, Shader Graph, Addressable Assets, Performance Profiling</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="godot-info" class="engine-info-section">
+            <h3 class="engine-info-title">Godot Engine Expertise</h3>
+            <div class="engine-info-content">
+                <div class="info-card">
+                    <h4>Core Features</h4>
+                    <p>Open-source engine, GDScript language, built-in editor, and efficient 2D/3D capabilities.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Project Experience</h4>
+                    <ul>
+                        <li>Indie Games</li>
+                        <li>2D Adventures</li>
+                        <li>Pixel Art Games</li>
+                        <li>Modular Game Systems</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Technical Skills</h4>
+                    <p>GDScript, Visual Scripting, Custom Nodes, Exporting to Multiple Platforms, Community Asset Integration</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="blender-info" class="engine-info-section">
+            <h3 class="engine-info-title">Blender 3D Expertise</h3>
+            <div class="engine-info-content">
+                <div class="info-card">
+                    <h4>Core Features</h4>
+                    <p>Complete 3D modeling suite, animation tools, texture painting, and game asset pipeline integration.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Project Experience</h4>
+                    <ul>
+                        <li>Character Modeling</li>
+                        <li>Environment Design</li>
+                        <li>Low-poly Assets</li>
+                        <li>Texture Creation</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Technical Skills</h4>
+                    <p>Modeling, UV Unwrapping, PBR Texturing, Rigging, Animation, Export for Game Engines</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" id="footer">
+            <div class="footer-left">
+                <div class="footer-title">Ready To Build Your Game?</div>
+                <p class="footer-text">
+                    Let's collaborate and bring your game ideas to life with cutting-edge technology and creative expertise.
+                </p>
+            </div>
+            <div class="footer-logo">M</div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Mike. All rights reserved. Crafted with passion for gaming.
+        </div>
+    </footer>
+    
+    <script>
+        // Typing animation for subtitle
+        const text = "Crafting immersive interactive experiences that push the boundaries of gaming technology. From concept to completion, bringing virtual worlds to life with cutting-edge game engines and creative vision.";
+        const typingElement = document.getElementById('typingText');
+        let index = 0;
+        
+        setTimeout(() => {
+            const typeInterval = setInterval(() => {
+                if (index < text.length) {
+                    typingElement.textContent += text.charAt(index);
+                    index++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, 30); // 30ms per character - faster speed
+        }, 1000); // Start after 2 seconds
+        
+        // Engine info toggle functionality
+        function toggleEngineInfo(toggleElement, engineName) {
+            // Toggle the active class on the card
+            toggleElement.classList.toggle('active');
+            const card = toggleElement.closest('.card');
+            card.classList.toggle('active');
+            
+            // Show/hide the corresponding engine info section
+            const infoSection = document.getElementById(`${engineName}-info`);
+            if (infoSection) {
+                infoSection.classList.toggle('active');
+                
+                // Scroll to the info section if it's being shown
+                if (infoSection.classList.contains('active')) {
+                    setTimeout(() => {
+                        infoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        }
+        
+        // Add smooth scroll behavior for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

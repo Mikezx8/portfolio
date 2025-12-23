@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: "Aeonik Pro Regular";
+            src: url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.woff2") format("woff2"),
+                url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.woff") format("woff"),
+                url("https://db.onlinewebfonts.com/t/12ff62164c9778917bddb93c6379cf47.ttf") format("truetype");
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Aeonik Pro Regular", "SF Pro Text", sans-serif;
+            background: #171717;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background Lines */
+        .lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            margin: auto;
+            width: 100vw;
+            z-index: 0;
+        }
+        
+        .line {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .line::after {
+            content: '';
+            display: block;
+            position: absolute;
+            height: 15vh;
+            width: 100%;
+            top: -50%;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+            animation: drop 7s infinite;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+        }
+        
+        .line:nth-child(1) { left: 10%; }
+        .line:nth-child(1)::after { animation-delay: 0s; }
+        
+        .line:nth-child(2) { left: 20%; }
+        .line:nth-child(2)::after { animation-delay: 1.5s; }
+        
+        .line:nth-child(3) { left: 30%; }
+        .line:nth-child(3)::after { animation-delay: 3s; }
+        
+        .line:nth-child(4) { left: 40%; }
+        .line:nth-child(4)::after { animation-delay: 0.5s; }
+        
+        .line:nth-child(5) { left: 50%; }
+        .line:nth-child(5)::after { animation-delay: 2s; }
+        
+        .line:nth-child(6) { left: 60%; }
+        .line:nth-child(6)::after { animation-delay: 2.5s; }
+        
+        .line:nth-child(7) { left: 70%; }
+        .line:nth-child(7)::after { animation-delay: 4s; }
+        
+        .line:nth-child(8) { left: 80%; }
+        .line:nth-child(8)::after { animation-delay: 1s; }
+        
+        .line:nth-child(9) { left: 90%; }
+        .line:nth-child(9)::after { animation-delay: 3.5s; }
+        
+        @keyframes drop {
+            0% { top: -50%; }
+            100% { top: 110%; }
+        }
+        
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            z-index: 100;
+            letter-spacing: -2px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding-top: 20px;
+            z-index: 100;
+        }
+        .nav-item {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 20px;
+            position: relative;
+            transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            border: 1px solid transparent;
+            border-radius: 20px;
+        }
+        .nav-item:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        .nav-item:hover::after {
+            transform: scaleX(1);
+        }
+        .nav-item:hover {
+            color: #fff;
+        }
+        .nav:has(.nav-item:hover) .nav-item:not(:hover) {
+            opacity: 0.3;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://th.bing.com/th/id/R.f111cfb63d11b49ab1db8df63e6a007a?rik=Cetc68Y0lzhw9Q&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2014%2f04%2fcode-wallpaper-4.png&ehk=hTl%2bAta%2bwA%2bcGQcrGBHzad0F%2f6ZsvZNZJ6%2bLR%2fy90N4%3d&risl=&pid=ImgRaw&r=0');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            left: 10%;
+            max-width: 700px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(13, end); /* Changed to 13 steps for "CYBER SECURITY" */
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #ccc;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* Expertise Card Sections - Proper Stacking */
+        .expertise-card {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 5%;
+            margin-bottom: 2rem;
+        }
+        
+        .expertise-card-inner {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(23, 23, 23, 0.95);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .expertise-card-content {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+        }
+        
+        .expertise-icon {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+        
+        .expertise-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+        
+        .expertise-card-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        
+        .expertise-card-subtitle {
+            color: #aaa;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .expertise-card-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 2rem;
+        }
+        
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .tool-tag {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 2rem;
+            color: #fff;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Specialization Section */
+        .specialization-section {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            background: #171717;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .specialization-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #fff;
+        }
+        
+        .specialization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .spec-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+        
+        .spec-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+        }
+        
+        .spec-card h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        
+        .spec-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .spec-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+        
+        .spec-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            background: #000;
+            border-top: 1px solid #333;
+            padding: 60px 40px 40px;
+            color: #888;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-left {
+            flex: 1;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            letter-spacing: -5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 968px) {
+            .expertise-card-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .expertise-icon {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Lines -->
+    <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    
+    <div class="logo">M</div>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="#special" class="nav-item">Special</a>
+        <a href="#skills" class="nav-item">Skills</a>
+        <a href="#footer" class="nav-item">About</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">CYBER SECURITY</h1>
+            <p class="hero-subtitle" id="typingText"></p>
+        </div>
+    </section>
+    
+    <!-- Custom Tool Development -->
+    <section class="expertise-card" id="special">
+        <div class="expertise-card-inner">
+            <div class="expertise-card-content">
+                <h2 class="expertise-card-title">Custom Tool Development</h2>
+                <p class="expertise-card-subtitle">Building From Scratch</p>
+                <p class="expertise-card-description">
+                    Running Kali Linux as my daily driver for 7+ months, but here's the twist - I don't rely on the pre-packaged tools everyone else uses. 
+                    No nmap, no Metasploit. I code my own tools from scratch because understanding how exploits work at a fundamental level is more valuable 
+                    than knowing how to run someone else's script. Direct YFP shell access for debugging and troubleshooting - getting my hands dirty with 
+                    the raw system is where real learning happens.
+                </p>
+                <div class="tools-list">
+                    <div class="tool-tag">Custom Exploit Tools</div>
+                    <div class="tool-tag">YFP Shell</div>
+                    <div class="tool-tag">Kali Linux</div>
+                    <div class="tool-tag">Manual Debugging</div>
+                </div>
+            </div>
+            <div class="expertise-icon">
+                <img src="https://iconape.com/wp-content/files/zg/367956/svg/hand-logo-icon-png-svg.png" alt="Custom Tools">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Android Payload Development -->
+    <section class="expertise-card">
+        <div class="expertise-card-inner">
+            <div class="expertise-card-content">
+                <h2 class="expertise-card-title">Android Payload Engineering</h2>
+                <p class="expertise-card-subtitle">APK Manipulation & Building</p>
+                <p class="expertise-card-description">
+                    Specialized in crafting Android payloads from the ground up. Using APKTool and APK Editor for reverse engineering and reconstruction, 
+                    combined with Gradle and Java for building sophisticated payloads. My workflow involves C/C++ for low-level operations, Python for 
+                    automation, and xxd for generating C headers when working with binary data. This isn't about using frameworks - it's about building 
+                    every component with precision and understanding exactly how each piece fits into the Android ecosystem.
+                </p>
+                <div class="tools-list">
+                    <div class="tool-tag">APKTool</div>
+                    <div class="tool-tag">APK Editor</div>
+                    <div class="tool-tag">Gradle</div>
+                    <div class="tool-tag">Java</div>
+                    <div class="tool-tag">C/C++</div>
+                    <div class="tool-tag">Python</div>
+                    <div class="tool-tag">xxd</div>
+                </div>
+            </div>
+            <div class="expertise-icon">
+                <img src="https://pngimg.com/d/camera_lens_PNG90.png" alt="Android Development">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Binary Analysis & System Exploitation -->
+    <section class="expertise-card">
+        <div class="expertise-card-inner">
+            <div class="expertise-card-content">
+                <h2 class="expertise-card-title">Binary & System Exploitation</h2>
+                <p class="expertise-card-subtitle">Deep System Understanding</p>
+                <p class="expertise-card-description">
+                    Deep dive into binary analysis and system-level exploitation. This isn't Metasploit-style exploitation - this is understanding how 
+                    operating systems actually work at their core. Memory management, process injection, privilege escalation through understanding system 
+                    architecture rather than running automated scripts. I analyze binaries, understand their structure, find vulnerabilities in the logic, 
+                    and craft exploits that work because I know the system, not because I copied a payload from GitHub.
+                </p>
+                <div class="tools-list">
+                    <div class="tool-tag">Binary Analysis</div>
+                    <div class="tool-tag">System Exploits</div>
+                    <div class="tool-tag">Memory Manipulation</div>
+                    <div class="tool-tag">Process Injection</div>
+                    <div class="tool-tag">Privilege Escalation</div>
+                </div>
+            </div>
+            <div class="expertise-icon">
+                <img src="https://static.vecteezy.com/system/resources/previews/015/337/697/original/eye-icon-transparent-eye-icon-free-png.png" alt="Binary Analysis">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Linux Malware Analysis & Networking -->
+    <section class="expertise-card">
+        <div class="expertise-card-inner">
+            <div class="expertise-card-content">
+                <h2 class="expertise-card-title">Malware Analysis & Networking</h2>
+                <p class="expertise-card-subtitle">Linux Forensics & Payload Delivery</p>
+                <p class="expertise-card-description">
+                    Specialized in Linux malware analysis - dissecting malicious binaries to understand their behavior, communication patterns, and 
+                    persistence mechanisms. Combined with strong networking fundamentals for payload delivery and command & control infrastructure. 
+                    The focus is on payload making and binary manipulation - creating stealthy, efficient payloads that understand and exploit network 
+                    protocols and system behaviors. Every payload is crafted with deep knowledge of both the target system and network infrastructure.
+                </p>
+                <div class="tools-list">
+                    <div class="tool-tag">Linux Malware Analysis</div>
+                    <div class="tool-tag">Network Protocols</div>
+                    <div class="tool-tag">Payload Development</div>
+                    <div class="tool-tag">C2 Infrastructure</div>
+                    <div class="tool-tag">Binary Forensics</div>
+                </div>
+            </div>
+            <div class="expertise-icon">
+                <img src="https://cdn.iconscout.com/icon/free/png-256/tux-457968.png" alt="Linux">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Specialization Section -->
+    <section class="specialization-section" id="skills">
+        <h2 class="specialization-title">Core Competencies</h2>
+        <div class="specialization-grid">
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://iconape.com/wp-content/files/zg/367956/svg/hand-logo-icon-png-svg.png" alt="Custom Tooling">
+                </div>
+                <h3>Custom Tooling</h3>
+                <p>Building security tools from scratch rather than relying on pre-built solutions. Every tool is designed for a specific purpose with deep understanding of the underlying systems.</p>
+            </div>
+            
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://pngimg.com/d/camera_lens_PNG90.png" alt="Mobile Exploitation">
+                </div>
+                <h3>Mobile Exploitation</h3>
+                <p>Android payload engineering with full control over APK modification, code injection, and binary manipulation using professional development tools.</p>
+            </div>
+            
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://cdn0.iconfinder.com/data/icons/security-protection-10/66/33-512.png" alt="System Architecture">
+                </div>
+                <h3>System Architecture</h3>
+                <p>Deep understanding of operating system internals, memory management, and exploitation techniques that work at the system level.</p>
+            </div>
+            
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/3155021/binary-clipart-xl.png" alt="Binary Analysis">
+                </div>
+                <h3>Binary Analysis</h3>
+                <p>Reverse engineering and analyzing compiled binaries to discover vulnerabilities and understand malware behavior at the lowest level.</p>
+            </div>
+            
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://cdn0.iconfinder.com/data/icons/security-protection-10/66/33-512.png" alt="Network Security">
+                </div>
+                <h3>Network Security</h3>
+                <p>Understanding network protocols and infrastructure for payload delivery, C2 communication, and exploit development.</p>
+            </div>
+            
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/tux-457968.png" alt="Malware Research">
+                </div>
+                <h3>Malware Research</h3>
+                <p>Analyzing Linux malware to understand attack vectors, persistence mechanisms, and developing countermeasures through deep technical analysis.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" id="footer">
+            <div class="footer-left">
+                <div class="footer-title">Security Research & Collaboration</div>
+                <p class="footer-text">
+                    Interested in security research collaboration or custom tool development?<br>
+                    Let's discuss exploitation techniques and binary analysis.
+                </p>
+            </div>
+            <div class="footer-logo">M</div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Mike. All rights reserved. Security through understanding, not obscurity.
+        </div>
+    </footer>
+    <script>
+        // Typing animation for subtitle
+        const text = "Security Researcher | Exploit Developer | Binary Analyst. System exploitation is not about tools, it's about understanding the system itself.";
+        const typingElement = document.getElementById('typingText');
+        let index = 0;
+        
+        setTimeout(() => {
+            const typeInterval = setInterval(() => {
+                if (index < text.length) {
+                    if (text.charAt(index) === '\n') {
+                        typingElement.innerHTML += '<br>';
+                    } else {
+                        typingElement.textContent += text.charAt(index);
+                    }
+                    index++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, 30); // 30ms per character - faster speed
+        }, 2000); // Start after 2 seconds
+        
+        // Add fade effect on scroll
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.expertise-card');
+            const scrolled = window.scrollY;
+            
+            cards.forEach((card, index) => {
+                const cardTop = card.offsetTop;
+                const cardHeight = card.offsetHeight;
+                const nextCardTop = cards[index + 1]?.offsetTop || Infinity;
+                
+                if (scrolled > cardTop && scrolled < nextCardTop) {
+                    const progress = (scrolled - cardTop) / cardHeight;
+                    const opacity = Math.max(0, 1 - progress * 1.5);
+                    card.style.opacity = opacity;
+                } else if (scrolled >= nextCardTop) {
+                    card.style.opacity = 0;
+                } else {
+                    card.style.opacity = 1;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

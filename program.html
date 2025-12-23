@@ -1,0 +1,1230 @@
+<html>
+<head>
+    <style>
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
+            overflow-x: hidden;
+            background: hsl(0 0% 2%);
+        }
+        
+        body::before {
+            --line: hsl(0 0% 95% / 0.25);
+            content: "";
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            background:
+                linear-gradient(90deg, var(--line) 1px, transparent 1px 10vmin) 0 -5vmin / 10vmin 10vmin,
+                linear-gradient(var(--line) 1px, transparent 1px 10vmin) 0 -5vmin / 10vmin 10vmin;
+            mask: linear-gradient(-15deg, transparent 30%, white);
+            top: 0;
+            z-index: -1;
+        }
+        
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            z-index: 100;
+            letter-spacing: -2px;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding-top: 20px;
+            z-index: 100;
+        }
+        .nav-item {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 20px;
+            position: relative;
+            transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            border: 1px solid transparent;
+            border-radius: 20px;
+        }
+        .nav-item:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        .nav-item:hover::after {
+            transform: scaleX(1);
+        }
+        .nav-item:hover {
+            color: #fff;
+        }
+        .nav:has(.nav-item:hover) .nav-item:not(:hover) {
+            opacity: 0.3;
+        }
+        
+        /* Programming Background */
+        .programming-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://wallpapercave.com/wp/wp11430475.jpg') center/cover no-repeat;
+            z-index: 0;
+        }
+        
+        .programming-container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .programming-description {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #ccc;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 80px;
+            margin: 0 auto;
+            padding-bottom: 150px;
+        }
+        
+        .programming-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* Language Cards Grid */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto 4rem auto;
+        }
+        
+        .language-card {
+            position: relative;
+            background: radial-gradient(circle at 50% 0%, #3a3a3a 0%, #1a1a1a 64%);
+            box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0, inset 0 -1.01rem 0.2rem -1rem #0000,
+                0 -1.02rem 0.2rem -1rem #fff0, 0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3,
+                0 4px 4px 0 #0004, 0 0 0 1px #333;
+            border-radius: 1.8rem;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease-in-out, translate 0.4s ease-out;
+            min-height: 380px;
+            text-align: center;
+        }
+        
+        .language-card::before {
+            content: "";
+            display: block;
+            --offset: 1rem;
+            width: calc(100% + 2 * var(--offset));
+            height: calc(100% + 2 * var(--offset));
+            position: absolute;
+            left: calc(-1 * var(--offset));
+            right: calc(-1 * var(--offset));
+            top: calc(-1 * var(--offset));
+            bottom: calc(-1 * var(--offset));
+            margin: auto;
+            box-shadow: inset 0 0 0px 0.06rem #fff2;
+            border-radius: 2.6rem;
+            --ax: 4rem;
+            clip-path: polygon(
+                var(--ax) 0, 0 0, 0 var(--ax), var(--ax) var(--ax),
+                var(--ax) calc(100% - var(--ax)), 0 calc(100% - var(--ax)), 0 100%,
+                var(--ax) 100%, var(--ax) calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)), calc(100% - var(--ax)) 100%,
+                100% 100%, 100% calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)), calc(100% - var(--ax)) var(--ax),
+                100% var(--ax), 100% 0, calc(100% - var(--ax)) 0,
+                calc(100% - var(--ax)) var(--ax), var(--ax) var(--ax)
+            );
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .language-card:hover {
+            translate: 0 -0.2rem;
+        }
+        
+        .language-card:hover::before {
+            --offset: 0.5rem;
+            --ax: 8rem;
+            border-radius: 2.2rem;
+            box-shadow: inset 0 0 0 0.08rem #fff1;
+        }
+        
+        .light-layer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            transform-style: preserve-3d;
+            perspective: 400px;
+        }
+        
+        .slit {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 64%;
+            height: 1.2rem;
+            transform: rotateX(-76deg);
+            background: #121212;
+            box-shadow: 0 0 4px 0 #fff0;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .lumen {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            perspective: 400px;
+            opacity: 0.5;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .lumen .min {
+            width: 70%;
+            height: 3rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 2.5rem;
+            margin: auto;
+            transform: rotateX(-42deg);
+            opacity: 0.4;
+        }
+        
+        .lumen .mid {
+            width: 74%;
+            height: 13rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 10em;
+            margin: auto;
+            transform: rotateX(-42deg);
+            filter: blur(1rem);
+            opacity: 0.8;
+            border-radius: 100% 100% 0 0;
+        }
+        
+        .lumen .hi {
+            width: 50%;
+            height: 13rem;
+            background: linear-gradient(#fff0, #fffa);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 12em;
+            margin: auto;
+            transform: rotateX(22deg);
+            filter: blur(1rem);
+            opacity: 0.6;
+            border-radius: 100% 100% 0 0;
+        }
+        
+        .darken {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            perspective: 400px;
+            transition: opacity 0.4s ease-in-out;
+            opacity: 0.8;
+        }
+        
+        .darken > * {
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .darken .sl {
+            width: 64%;
+            height: 10rem;
+            background: linear-gradient(#000, #0000);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 9.6em;
+            bottom: 0;
+            margin: auto;
+            filter: blur(0.2rem);
+            opacity: 0.1;
+            border-radius: 0 0 100% 100%;
+            transform: rotateX(-22deg);
+        }
+        
+        .darken .ll {
+            width: 62%;
+            height: 10rem;
+            background: linear-gradient(#000a, #0000);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 11em;
+            bottom: 0;
+            margin: auto;
+            filter: blur(0.8rem);
+            opacity: 0.4;
+            border-radius: 0 0 100% 100%;
+            transform: rotateX(22deg);
+        }
+        
+        .darken .slt {
+            width: 0.5rem;
+            height: 4rem;
+            background: linear-gradient(#0005, #0000);
+            position: absolute;
+            left: 0;
+            right: 11.5rem;
+            top: 3.9em;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.6;
+            border-radius: 0 0 100% 100%;
+            transform: skewY(42deg);
+        }
+        
+        .darken .srt {
+            width: 0.5rem;
+            height: 4rem;
+            background: linear-gradient(#0005, #0000);
+            position: absolute;
+            right: 0;
+            left: 11.5rem;
+            top: 3.9em;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.6;
+            border-radius: 0 0 100% 100%;
+            transform: skewY(-42deg);
+        }
+        
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            filter: drop-shadow(0 -1.2rem 1px #0003) brightness(1.64);
+            transition: filter 0.4s ease-in-out;
+        }
+        
+        .content .icon img {
+            width: 4rem;
+            height: 4rem;
+            filter: brightness(0.8)
+        }
+        
+        .content .bottom {
+            text-align: center;
+        }
+        
+        .content .bottom h4 {
+            margin: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #ccc;
+        }
+        
+        .content .bottom p {
+            margin: 0 auto;
+            padding-bottom: 0.6rem;
+            color: #fff4;
+            font-size: 0.8rem;
+            font-weight: 100;
+            border-bottom: 1px solid #fff1;
+            max-width: 80%;
+        }
+        
+        .toggle {
+            margin: 2rem auto 0;
+            height: 2rem;
+            width: 4.8rem;
+            border-radius: 0.6rem;
+            background: #000;
+            box-shadow: inset 0 -8px 8px 0.3rem #0004, inset 0 0 1px 0.3rem #ddd,
+                inset 0 -2px 1px 0.3rem #fff, inset 0 1px 2px 0.3rem #0006,
+                inset 0 0 1px 0.8rem #aaa;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+        }
+        
+        .toggle::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 3.4rem;
+            height: 0.68rem;
+            border-radius: 0.2rem;
+            background: #fffc;
+            box-shadow: 0 0 0.3rem 0.2rem #fff7;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .handle {
+            position: absolute;
+            top: 0;
+            bottom: 0.04rem;
+            margin: auto;
+            left: 0.68rem;
+            width: 40%;
+            height: 30%;
+            background: #aaa;
+            border-radius: 0.2rem;
+            box-shadow: inset 0 1px 12px 0 #fff, inset 0 -1px 1px 0 #fffa,
+                0 0 2px 1px #4443, 1px 3px 6px 1px #0004;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .toggle.active .handle {
+            transform: translateX(1.58rem);
+        }
+        
+        .toggle span {
+            pointer-events: none;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            bottom: calc(100% + 0.4rem);
+            font-size: 0.6rem;
+            font-weight: 100;
+            color: #555;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .toggle:hover span {
+            opacity: 1;
+        }
+        
+        .toggle:not(.active):hover .handle {
+            transform: translateX(0.2rem);
+        }
+        
+        .language-card:has(.toggle.active) {
+            box-shadow: inset 0 1.01rem 0.1rem -1rem #fffa, inset 0 -4rem 3rem -3rem #000a,
+                0 -1.02rem 0.2rem -1rem #fffa, 0 1rem 0.2rem -1rem #000, 0 0 0 1px #fff2,
+                0 4px 4px 0 #0004, 0 0 0 1px #333;
+        }
+        
+        .language-card:has(.toggle.active) .slit {
+            background: #fff;
+            box-shadow: 0 0 4px 0 #fff;
+        }
+        
+        .language-card:has(.toggle.active) .lumen {
+            opacity: 0.5;
+        }
+        
+        .language-card:has(.toggle.active) .darken {
+            opacity: 0.8;
+        }
+        
+        .language-card:has(.toggle.active) .darken .sl {
+            opacity: 0.2;
+        }
+        
+        .language-card:has(.toggle.active) .darken .ll {
+            opacity: 1;
+        }
+        
+        .language-card:has(.toggle.active) .darken .slt {
+            opacity: 1;
+        }
+        
+        .language-card:has(.toggle.active) .darken .srt {
+            opacity: 1;
+        }
+        
+        .language-card:has(.toggle.active) .content .icon {
+            filter: drop-shadow(0 -1.2rem 2px #0003) brightness(1.64);
+        }
+        
+        .language-card:has(.toggle.active) .toggle::before {
+            background: #fffc;
+            box-shadow: 0 0 0.3rem 0.2rem #fff7;
+        }
+        
+        .language-card:has(.toggle.active) .handle {
+            box-shadow: inset 0 1px 12px 0 #fff, inset 0 -1px 1px 0 #fffa,
+                0 0 2px 1px #4443, 1px 3px 6px 1px #0004;
+        }
+        
+        /* Skills Section */
+.skills-section {
+    position: relative;
+    z-index: 10;
+    background: radial-gradient(circle at 50% 20%, #1a1a1a 0%, #050505 70%);
+    padding: 6rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+
+.skills-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-align: center;
+    margin-bottom: 4rem;
+    background: linear-gradient(hsl(0 0% 98%) 30%, hsl(0 0% 30%));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.skills-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 4rem 3rem;
+}
+
+.skill-item {
+    position: relative;
+}
+
+.skill-item h3 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.skill-item p {
+    color: #aaa;
+    line-height: 1.9;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-tag {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+/* Projects Section */
+.projects-section {
+    position: relative;
+    z-index: 10;
+    background: radial-gradient(circle at 50% 80%, #1a1a1a 0%, #050505 70%);
+    padding: 6rem 2rem 8rem 2rem; /* Increased bottom padding */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 0; /* Remove any bottom margin */
+}
+
+.projects-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-align: center;
+    margin-bottom: 4rem;
+    background: linear-gradient(hsl(0 0% 98%) 30%, hsl(0 0% 30%));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.projects-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 4rem 3rem;
+}
+
+.project-item {
+    position: relative;
+}
+
+.project-item h3 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.project-item p {
+    color: #aaa;
+    line-height: 1.9;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.project-tech-tag {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.github-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.github-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .skills-container,
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+footer {
+    background: #000;
+    border-top: 1px solid #333;
+    padding: 60px 40px 40px;
+    color: #888;
+    margin-top: 0; /* Remove top margin */
+    position: relative;
+    z-index: 10;
+}
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-left {
+            flex: 1;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #fff;
+        }
+        
+        .footer-logo {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            color: #fff;
+            letter-spacing: -5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .languages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-radial-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, 1fr);
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">M</div>
+    
+    <nav class="nav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="#special" class="nav-item">Languages</a>
+        <a href="#skills" class="nav-item">Skills</a>
+        <a href="#projects" class="nav-item">Projects</a>
+        <a href="#footer" class="nav-item">About</a>
+    </nav>
+    
+    <!-- Programming Background -->
+    <div class="programming-bg"></div>
+    
+    <!-- Programming Container -->
+    <div class="programming-container" id="languages">
+        <h1 class="programming-title">Programming Expertise</h1>
+        <p class="programming-description">
+            Mastering multiple programming languages and paradigms. From low-level systems programming to high-level application development, 
+            I bring diverse technical skills to create innovative and efficient solutions across various domains.
+        </p>
+        
+        <!-- Language Cards Grid -->
+        <div class="languages-grid">
+            <!-- Python Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+                    </div>
+                    <div class="bottom">
+                        <h4>Python</h4>
+                        <p>Data Science & AI<br/>Web Development</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HTML Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML">
+                    </div>
+                    <div class="bottom">
+                        <h4>HTML</h4>
+                        <p>Web Structure<br/>Semantic Markup</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CSS Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS">
+                    </div>
+                    <div class="bottom">
+                        <h4>CSS</h4>
+                        <p>Styling & Design<br/>Responsive Layouts</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- React Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React">
+                    </div>
+                    <div class="bottom">
+                        <h4>React</h4>
+                        <p>Frontend Development<br/>Component-Based UI</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- C Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" alt="C">
+                    </div>
+                    <div class="bottom">
+                        <h4>C</h4>
+                        <p>System Programming<br/>Performance Critical</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- C++ Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++">
+                    </div>
+                    <div class="bottom">
+                        <h4>C++</h4>
+                        <p>Game Development<br/>High-Performance Apps</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Java Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png" alt="Java">
+                    </div>
+                    <div class="bottom">
+                        <h4>Java</h4>
+                        <p>Enterprise Apps<br/>Android Development</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kotlin Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png" alt="Kotlin">
+                    </div>
+                    <div class="bottom">
+                        <h4>Kotlin</h4>
+                        <p>Modern JVM<br/>Android Development</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- XML Card -->
+            <div class="language-card">
+                <div class="light-layer">
+                    <div class="slit"></div>
+                    <div class="lumen">
+                        <div class="min"></div>
+                        <div class="mid"></div>
+                        <div class="hi"></div>
+                    </div>
+                    <div class="darken">
+                        <div class="sl"></div>
+                        <div class="ll"></div>
+                        <div class="slt"></div>
+                        <div class="srt"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <img src="https://tse2.mm.bing.net/th/id/OIP.oD23PjUPVkwCR2mcM6RGngHaHk?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="XML">
+                    </div>
+                    <div class="bottom">
+                        <h4>XML</h4>
+                        <p>Data Configuration<br/>Markup Language</p>
+                        <div class="toggle active" onclick="this.classList.toggle('active');">
+                            <div class="handle"></div>
+                            <span>Activate Power</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <section class="skills-section" id="skills">
+            <h2 class="skills-title">Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-item">
+                    <h3>Low-Level Programming</h3>
+                    <p>Expert in C and C++ for system-level programming, including operating systems, compilers, and performance-critical applications. Can debug and understand Android byte code and assembly machine code.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Assembly</span>
+                        <span class="skill-tag">Byte Code</span>
+                        <span class="skill-tag">Machine Code</span>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <h3>Web Development</h3>
+                    <p>Full-stack web development expertise with HTML, CSS, and React. Creating responsive, modern web applications with clean architecture and optimal performance.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Responsive Design</span>
+                        <span class="skill-tag">Web Performance</span>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <h3>Python Development</h3>
+                    <p>Proficient in Python for rapid prototyping, server handling with Flask, data analysis, and AI applications. Specialized in creating efficient backend systems.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">AI/ML</span>
+                        <span class="skill-tag">Rapid Prototyping</span>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <h3>Mobile Development</h3>
+                    <p>Experienced in Java and Kotlin for Android development, creating cross-platform applications with modern UI/UX and efficient resource management.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Kotlin</span>
+                        <span class="skill-tag">Android</span>
+                        <span class="skill-tag">Cross-Platform</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section class="projects-section" id="projects">
+            <h2 class="projects-title">Featured Projects</h2>
+            <div class="projects-container">
+                <div class="project-item">
+                    <h3>PyDebugger</h3>
+                    <p>A powerful debugger for Python that helps quickly fix errors and formatting issues with advanced debugging capabilities and real-time error detection.</p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">Python</span>
+                        <span class="project-tech-tag">Debugging</span>
+                        <span class="project-tech-tag">Error Handling</span>
+                    </div>
+                    <a href="https://github.com/mike/pydebugger" target="_blank" class="github-btn">View on GitHub →</a>
+                </div>
+                
+                <div class="project-item">
+                    <h3>Servix OS</h3>
+                    <p>A lightweight server operating system designed for optimal server traffic handling with built-in DDoS protection and minimal system overhead.</p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">C</span>
+                        <span class="project-tech-tag">Assembly</span>
+                        <span class="project-tech-tag">Server OS</span>
+                        <span class="project-tech-tag">DDoS Protection</span>
+                    </div>
+                    <a href="https://github.com/mike/servix" target="_blank" class="github-btn">View on GitHub →</a>
+                </div>
+                
+                <div class="project-item">
+                    <h3>C_Cam Library</h3>
+                    <p>A cross-platform C library for webcam access on Windows and Linux systems, providing low-level camera control and image capture capabilities.</p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">C</span>
+                        <span class="project-tech-tag">Webcam Access</span>
+                        <span class="project-tech-tag">Cross-Platform</span>
+                        <span class="project-tech-tag">Linux/Windows</span>
+                    </div>
+                    <a href="https://github.com/mike/c_cam" target="_blank" class="github-btn">View on GitHub →</a>
+                </div>
+                
+                <div class="project-item">
+                    <h3>Mallysis</h3>
+                    <p>Advanced malware detection software that monitors hardware usage and detects suspicious activities on the device to block harmful applications in real-time.</p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">Python</span>
+                        <span class="project-tech-tag">Malware Detection</span>
+                        <span class="project-tech-tag">System Monitoring</span>
+                        <span class="project-tech-tag">Security</span>
+                    </div>
+                    <a href="https://github.com/mike/mallysis" target="_blank" class="github-btn">View on GitHub →</a>
+                </div>
+                
+                <div class="project-item">
+                    <h3>Weather App</h3>
+                    <p>A beautiful, responsive weather application for Android and PC with real-time weather reporting and intuitive user interface.</p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">Kotlin</span>
+                        <span class="project-tech-tag">Android</span>
+                        <span class="project-tech-tag">Real-time Data</span>
+                        <span class="project-tech-tag">Cross-Platform</span>
+                    </div>
+                    <a href="https://github.com/mike/weather-app" target="_blank" class="github-btn">View on GitHub →</a>
+                </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" id="footer">
+            <div class="footer-left">
+                <div class="footer-title">Let's Code Together</div>
+                <p class="footer-text">
+                    Interested in collaborating on a programming project? I'm always open to discussing new opportunities and technical challenges.
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com/mike" target="_blank" class="footer-link">GitHub</a>
+                    <a href="https://linkedin.com/in/mike" target="_blank" class="footer-link">LinkedIn</a>
+                    <a href="mailto:mike@example.com" class="footer-link">Email</a>
+                    <a href="https://discord.com/users/mike" target="_blank" class="footer-link">Discord</a>
+                </div>
+            </div>
+            <div class="footer-logo">M</div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Mike. All rights reserved. Built with passion for programming.
+        </div>
+    </footer>
+</body>
+</html>
