@@ -1,37 +1,15 @@
-def to_text_unicode(s):
-    r = ""
-    i = 0
-    while i < len(s):
-        c = s[i]
-        o = ord(c)
+from flask import Flask, send_from_directory
+import os
 
-        # drop emoji selector
-        if o == 0xFE0F:
-            i += 1
-            continue
+app = Flask(__name__)
+# Set the folder containing your HTML files
+HTML_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "html")
 
-        # force text selector
-        if i + 1 < len(s) and ord(s[i + 1]) == 0xFE0F:
-            r += c + "\uFE0E"
-            i += 2
-            continue
+@app.route('/', defaults={'path': 'index.html'})
+@app.route('/<path:path>')
+def serve_file(path):
+    # Serve any file in the HTML_DIR
+    return send_from_directory(HTML_DIR, path)
 
-        r += c
-        i += 1
-
-    # hard replacements (UI-safe)
-    r = (
-        r.replace("✅", "✓")
-         .replace("❌", "✗")
-         .replace("✔", "✓")
-         .replace("✖", "✗")
-         .replace("⭐", "★")
-         .replace("➡", "→")
-         .replace("⬅", "←")
-         .replace("⬆", "↑")
-         .replace("⬇", "↓")
-    )
-
-    return r
-
-print(to_text_unicode("⚙️ Settings ✅ ❌ ⭐ ➡️ 💻 📚 🎨 🗑️"))
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
